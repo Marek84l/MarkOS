@@ -1,0 +1,18 @@
+# MarekOS live-build generated files
+iso/.build/
+iso/cache/
+iso/chroot/
+iso/binary/
+iso/.stage/
+
+# Generated images and build artifacts
+iso/*.iso
+iso/*.img
+iso/*.hybrid.iso
+iso/*.contents
+iso/*.packages
+iso/*.zsync
+
+# Temporary files
+*~
+*.tmp
