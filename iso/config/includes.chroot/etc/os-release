@@ -1,0 +1,10 @@
+NAME="MarkOS"
+PRETTY_NAME="MarkOS 0.1"
+ID=markos
+ID_LIKE=debian
+VERSION_ID="0.1"
+VERSION="0.1"
+VERSION_CODENAME=testing
+HOME_URL="https://example.com"
+SUPPORT_URL="https://example.com"
+BUG_REPORT_URL="https://example.com"
