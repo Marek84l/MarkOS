@@ -16,3 +16,10 @@ iso/*.zsync
 # Temporary files
 *~
 *.tmp
+
+# live-build generated reports
+iso/binary.modified_timestamps
+iso/chroot.files
+iso/chroot.packages.install
+iso/chroot.packages.live
+iso/live-image-*.files
