@@ -1,4 +1,4 @@
-	# config/binary - options for live-build(7), binary stage
+# config/binary - options for live-build(7), binary stage
 
 # Set image type
 LB_IMAGE_TYPE="iso-hybrid"

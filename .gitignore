@@ -23,3 +23,5 @@ iso/chroot.files
 iso/chroot.packages.install
 iso/chroot.packages.live
 iso/live-image-*.files
+
+iso/MarkOS-*.files
