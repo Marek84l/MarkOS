@@ -13,3 +13,8 @@ running-indicator-style='DOT'
 show-show-apps-button=true
 show-apps-at-top=false
 show-apps-always-in-the-edge=false
+
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/backgrounds/markos/markos-cosmic.png'
+picture-uri-dark='file:///usr/share/backgrounds/markos/markos-cosmic.png'
+picture-options='zoom'

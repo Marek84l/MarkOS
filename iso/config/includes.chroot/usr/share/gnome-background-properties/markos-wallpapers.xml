@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+
+  <wallpaper deleted="false">
+    <name>MarkOS Cosmic</name>
+    <filename>/usr/share/backgrounds/markos/markos-cosmic.png</filename>
+    <options>zoom</options>
+    <pcolor>#10182b</pcolor>
+    <scolor>#10182b</scolor>
+    <shade_type>solid</shade_type>
+  </wallpaper>
+
+  <wallpaper deleted="false">
+    <name>MarkOS Midnight</name>
+    <filename>/usr/share/backgrounds/markos/markos-midnight.png</filename>
+    <options>zoom</options>
+    <pcolor>#07101f</pcolor>
+    <scolor>#07101f</scolor>
+    <shade_type>solid</shade_type>
+  </wallpaper>
+
+  <wallpaper deleted="false">
+    <name>MarkOS Aurora</name>
+    <filename>/usr/share/backgrounds/markos/markos-aurora.png</filename>
+    <options>zoom</options>
+    <pcolor>#10243b</pcolor>
+    <scolor>#10243b</scolor>
+    <shade_type>solid</shade_type>
+  </wallpaper>
+
+  <wallpaper deleted="false">
+    <name>MarkOS Dawn</name>
+    <filename>/usr/share/backgrounds/markos/markos-dawn.png</filename>
+    <options>zoom</options>
+    <pcolor>#d8b6ad</pcolor>
+    <scolor>#d8b6ad</scolor>
+    <shade_type>solid</shade_type>
+  </wallpaper>
+
+</wallpapers>
