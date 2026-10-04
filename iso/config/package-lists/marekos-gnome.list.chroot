@@ -21,3 +21,5 @@ network-manager
 bluez
 
 gnome-tweaks
+gnome-shell-extensions
+gnome-shell-extension-manager
