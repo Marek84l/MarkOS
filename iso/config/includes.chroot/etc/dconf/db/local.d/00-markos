@@ -8,3 +8,4 @@ autohide=false
 intellihide=false
 transparency-mode='FIXED'
 background-opacity=0.0
+running-indicator-style='DOT'
