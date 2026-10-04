@@ -18,3 +18,7 @@ show-apps-always-in-the-edge=false
 picture-uri='file:///usr/share/backgrounds/markos/markos-cosmic.png'
 picture-uri-dark='file:///usr/share/backgrounds/markos/markos-cosmic.png'
 picture-options='zoom'
+
+[org/gnome/Ptyxis]
+use-system-font=false
+font-name='JetBrains Mono 11'
