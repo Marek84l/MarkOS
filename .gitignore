@@ -1,9 +1,10 @@
-# MarekOS live-build generated files
+# MarkOS live-build generated directories
 iso/.build/
 iso/cache/
 iso/chroot/
 iso/binary/
 iso/.stage/
+iso/local/
 
 # Generated images and build artifacts
 iso/*.iso
@@ -12,10 +13,7 @@ iso/*.hybrid.iso
 iso/*.contents
 iso/*.packages
 iso/*.zsync
-
-# Temporary files
-*~
-*.tmp
+iso/*.files
 
 # live-build generated reports
 iso/binary.modified_timestamps
@@ -23,5 +21,14 @@ iso/chroot.files
 iso/chroot.packages.install
 iso/chroot.packages.live
 iso/live-image-*.files
-
 iso/MarkOS-*.files
+
+# Temporary/editor files
+*~
+*.tmp
+*.swp
+*.swo
+
+# Common local metadata
+.DS_Store
+Thumbs.db
