@@ -74,3 +74,67 @@ Clone the repository and build the builder image:
 
 ```bash
 sudo podman build -t markos-builder -f build/Containerfile .
+```
+
+Build MarkOS:
+
+```bash
+./build-marekos.sh
+```
+
+The build script automatically:
+
+1. cleans the previous live-build state,
+2. configures the MarkOS Live build,
+3. builds a fresh ISO,
+4. creates the final image:
+
+```text
+iso/MarkOS-0.1-amd64.iso
+```
+
+## Roadmap
+
+Planned work includes:
+
+- MarkOS Appearance manager
+- Graphical system installer
+- Installer-ready Live ISO
+- NVIDIA driver management
+- Kernel management
+- Update management
+- MarkOS Control Center
+- Plymouth boot branding
+- GRUB branding
+- MarkOS terminal configuration
+- Nerd Font integration
+- Starship prompt
+- MarkOS terminal prompt and logo
+- Top-bar system monitoring
+- Additional appearance presets
+- Cinnamon edition
+- i3 edition
+
+## Development philosophy
+
+MarkOS is developed in small, testable steps.
+
+Changes are generally:
+
+1. implemented,
+2. tested in a fresh Live ISO,
+3. committed to Git,
+4. then extended further.
+
+This helps keep the system reproducible and makes regressions easier to identify.
+
+## License
+
+MarkOS source code, build scripts and configuration are licensed under the
+GNU General Public License version 3.
+
+MarkOS branding and original artwork are subject to separate usage terms.
+See [BRANDING.md](BRANDING.md) for details.
+
+Third-party software included in MarkOS remains subject to its respective
+licenses.
