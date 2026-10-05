@@ -22,3 +22,6 @@ picture-options='zoom'
 [org/gnome/Ptyxis]
 use-system-font=false
 font-name='JetBrains Mono 11'
+
+[org/gnome/desktop/interface]
+color-scheme='prefer-dark'
