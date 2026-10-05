@@ -1,5 +1,5 @@
 [org/gnome/shell]
-enabled-extensions=['dash-to-dock@micxgx.gmail.com', 'system-monitor@gnome-shell-extensions.gcampax.github.com']
+enabled-extensions=['dash-to-dock@micxgx.gmail.com']
 favorite-apps=['brave-browser.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'org.gnome.Calculator.desktop', 'net.nokyan.Resources.desktop', 'org.gnome.Ptyxis.desktop', 'org.gnome.Settings.desktop']
 
 [org/gnome/shell/extensions/dash-to-dock]
@@ -30,9 +30,3 @@ accent-color='purple'
 [org/gnome/desktop/wm/preferences]
 button-layout='appmenu:minimize,maximize,close'
 
-[org/gnome/shell/extensions/system-monitor]
-show-cpu=true
-show-memory=true
-show-swap=false
-show-upload=false
-show-download=false
