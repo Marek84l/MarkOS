@@ -1,0 +1,31 @@
+format = """
+[󰣇 ](bold purple)\
+$username\
+$directory\
+$git_branch\
+$git_status\
+$line_break\
+$character"""
+
+[username]
+show_always = true
+style_user = "bold purple"
+format = "[$user]($style) "
+
+[directory]
+style = "bold blue"
+truncation_length = 3
+format = "[$path]($style) "
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "bold red"
+format = "[$all_status$ahead_behind]($style)"
+
+[character]
+success_symbol = "[❯](bold purple)"
+error_symbol = "[❯](bold red)"

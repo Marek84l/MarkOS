@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+VERSION="v3.5.1"
+URL="https://github.com/ryanoasis/nerd-fonts/releases/download/${VERSION}/JetBrainsMono.tar.xz"
+
+mkdir -p /usr/local/share/fonts/markos/JetBrainsMonoNerd
+
+curl -fL "$URL" -o /tmp/JetBrainsMono.tar.xz
+
+tar -xJf /tmp/JetBrainsMono.tar.xz \
+  -C /usr/local/share/fonts/markos/JetBrainsMonoNerd
+
+rm -f /tmp/JetBrainsMono.tar.xz
+
+fc-cache -f

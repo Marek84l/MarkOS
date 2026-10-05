@@ -7,3 +7,6 @@ libreoffice
 flatpak
 gnome-software
 gnome-software-plugin-flatpak
+starship
+xz-utils
+fontconfig
