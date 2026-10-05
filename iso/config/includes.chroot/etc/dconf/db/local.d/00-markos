@@ -25,3 +25,4 @@ font-name='JetBrains Mono 11'
 
 [org/gnome/desktop/interface]
 color-scheme='prefer-dark'
+accent-color='purple'
