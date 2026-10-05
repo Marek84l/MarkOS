@@ -23,5 +23,6 @@ gnome-tweaks
 gnome-shell-extensions
 gnome-shell-extension-manager
 gnome-shell-extension-dashtodock
+gnome-shell-extension-system-monitor
 
 fonts-jetbrains-mono
