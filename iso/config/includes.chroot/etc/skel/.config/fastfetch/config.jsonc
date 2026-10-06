@@ -3,7 +3,7 @@
 
   "logo": {
     "type": "file",
-    "source": "/usr/share/markos/fastfetch/orbit.txt",
+    "source": "/usr/share/markos/fastfetch/markos.txt",
     "padding": {
       "right": 4
     }
@@ -80,7 +80,8 @@
     {
       "type": "disk",
       "key": "󰋊  Storage",
-      "keyColor": "cyan"
+      "keyColor": "cyan",
+      "folders": "/"
     },
     {
       "type": "uptime",
