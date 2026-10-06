@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=MarkOS Appearance
+Comment=Personalise the look and feel of MarkOS
+Exec=/usr/lib/markos-appearance/markos-appearance.py
+Icon=preferences-desktop-appearance
+Terminal=false
+Type=Application
+Categories=Settings;DesktopSettings;
+Keywords=MarkOS;Appearance;Theme;Wallpaper;Style;
+StartupNotify=true
+StartupWMClass=io.markos.Appearance
