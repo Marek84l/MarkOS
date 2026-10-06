@@ -2,7 +2,7 @@
 Name=MarkOS Appearance
 Comment=Personalise the look and feel of MarkOS
 Exec=/usr/lib/markos-appearance/markos-appearance.py
-Icon=preferences-desktop-appearance
+Icon=io.markos.Appearance
 Terminal=false
 Type=Application
 Categories=Settings;DesktopSettings;
