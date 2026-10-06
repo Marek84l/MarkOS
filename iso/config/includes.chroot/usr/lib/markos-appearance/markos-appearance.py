@@ -8,7 +8,10 @@ import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Adw, Gtk, Gio
+from gi.repository import Adw, Gtk, Gio, GLib
+
+from starship import apply_starship_palette
+from fastfetch import apply_fastfetch_palette
 
 
 APP_ID = "io.markos.Appearance"
@@ -19,11 +22,21 @@ SYSTEM_PRESET_DIR = SYSTEM_ROOT / "appearance"
 
 # Development paths when running directly from the MarkOS repository.
 DEV_ROOT = Path(__file__).resolve().parents[3]
+
 DEV_WALLPAPER_DIR = (
-    DEV_ROOT / "usr" / "share" / "backgrounds" / "markos"
+    DEV_ROOT
+    / "usr"
+    / "share"
+    / "backgrounds"
+    / "markos"
 )
+
 DEV_PRESET_DIR = (
-    DEV_ROOT / "usr" / "share" / "markos" / "appearance"
+    DEV_ROOT
+    / "usr"
+    / "share"
+    / "markos"
+    / "appearance"
 )
 
 
@@ -45,7 +58,10 @@ def wallpaper_path(filename):
     if dev_path.exists():
         return dev_path
 
-    print(f"Warning: wallpaper not found: {filename}")
+    print(
+        f"Warning: wallpaper not found: {filename}"
+    )
+
     return dev_path
 
 
@@ -55,16 +71,22 @@ def file_uri(path):
 
 def load_presets():
     presets = []
+
     preset_dir = get_preset_dir()
 
-    for path in sorted(preset_dir.glob("*.conf")):
+    for path in sorted(
+        preset_dir.glob("*.conf")
+    ):
         config = configparser.ConfigParser()
+
         config.read(path)
 
         if "MarkOS Appearance" not in config:
             continue
 
-        section = config["MarkOS Appearance"]
+        section = config[
+            "MarkOS Appearance"
+        ]
 
         try:
             preset = {
@@ -74,18 +96,37 @@ def load_presets():
                 "scheme": section["ColorScheme"],
                 "accent": section["AccentColor"],
                 "icon_theme": section["IconTheme"],
+
                 "terminal_palette": section.get(
                     "TerminalPalette",
                     path.stem,
                 ),
+
                 "terminal_opacity": section.getfloat(
                     "TerminalOpacity",
                     fallback=1.0,
                 ),
+
+                "terminal_background": section.get(
+                    "TerminalBackground",
+                    "#11111b",
+                ),
+
+                "terminal_foreground": section.get(
+                    "TerminalForeground",
+                    "#cdd6f4",
+                ),
+
+                "terminal_accent": section.get(
+                    "TerminalAccent",
+                    "#cba6f7",
+                ),
+
                 "starship_palette": section.get(
                     "StarshipPalette",
                     path.stem,
                 ),
+
                 "fastfetch_palette": section.get(
                     "FastfetchPalette",
                     path.stem,
@@ -94,8 +135,10 @@ def load_presets():
 
         except (KeyError, ValueError) as error:
             print(
-                f"Warning: invalid preset {path.name}: {error}"
+                f"Warning: invalid preset "
+                f"{path.name}: {error}"
             )
+
             continue
 
         presets.append(preset)
@@ -105,9 +148,12 @@ def load_presets():
 
 class MarkOSAppearance(Adw.Application):
     def __init__(self):
-        super().__init__(application_id=APP_ID)
+        super().__init__(
+            application_id=APP_ID
+        )
 
         self.presets = load_presets()
+
         self.preset_buttons = {}
 
         self.interface_settings = Gio.Settings.new(
@@ -118,19 +164,78 @@ class MarkOSAppearance(Adw.Application):
             "org.gnome.desktop.background"
         )
 
-        self.connect("activate", self.on_activate)
+        self.connect(
+            "activate",
+            self.on_activate,
+        )
 
-    def has_setting(self, settings, key):
-        schema = settings.props.settings_schema
+    def has_setting(
+        self,
+        settings,
+        key,
+    ):
+        schema = (
+            settings.props.settings_schema
+        )
+
         return schema.has_key(key)
 
-    def apply_preset(self, preset):
+    def begin_apply_preset(
+        self,
+        preset,
+    ):
+        button = self.preset_buttons.get(
+            preset["id"]
+        )
+
+        if button:
+            button.set_label(
+                "Applying…"
+            )
+
+            button.set_sensitive(
+                False
+            )
+
+        GLib.timeout_add(
+            180,
+            self.finish_apply_preset,
+            preset,
+        )
+
+    def finish_apply_preset(
+        self,
+        preset,
+    ):
+        self.apply_preset(
+            preset
+        )
+
+        for button in (
+            self.preset_buttons.values()
+        ):
+            button.set_sensitive(
+                True
+            )
+
+        return False
+
+    def apply_preset(
+        self,
+        preset,
+    ):
         path = wallpaper_path(
             preset["wallpaper"]
         )
-        uri = file_uri(path)
 
+        uri = file_uri(
+            path
+        )
+
+        # -----------------------------
         # Wallpaper
+        # -----------------------------
+
         self.background_settings.set_string(
             "picture-uri",
             uri,
@@ -146,7 +251,10 @@ class MarkOSAppearance(Adw.Application):
             "zoom",
         )
 
+        # -----------------------------
         # Dark / light appearance
+        # -----------------------------
+
         if self.has_setting(
             self.interface_settings,
             "color-scheme",
@@ -156,8 +264,12 @@ class MarkOSAppearance(Adw.Application):
                 preset["scheme"],
             )
 
-        # GNOME accent colour.
-        # Mint may not expose this key, so development testing remains safe.
+        # -----------------------------
+        # GNOME accent colour
+        # -----------------------------
+
+        # Mint may not expose this key.
+        # MarkOS GNOME does.
         if self.has_setting(
             self.interface_settings,
             "accent-color",
@@ -167,7 +279,10 @@ class MarkOSAppearance(Adw.Application):
                 preset["accent"],
             )
 
+        # -----------------------------
         # MarkOS icon theme
+        # -----------------------------
+
         if self.has_setting(
             self.interface_settings,
             "icon-theme",
@@ -177,56 +292,119 @@ class MarkOSAppearance(Adw.Application):
                 preset["icon_theme"],
             )
 
+        # -----------------------------
+        # MarkOS Starship palette
+        # -----------------------------
+
+        apply_starship_palette(
+            preset["starship_palette"]
+        )
+
+        # -----------------------------
+        # MarkOS Fastfetch palette
+        # -----------------------------
+
+        apply_fastfetch_palette(
+            preset["fastfetch_palette"]
+        )
+
+        # -----------------------------
+        # Coming next
+        # -----------------------------
+        #
+        # Ptyxis:
+        #   terminal_palette
+        #   terminal_opacity
+        #   terminal_background
+        #   terminal_foreground
+        #   terminal_accent
+        #
+        # Fastfetch:
+        #   fastfetch_palette
+
         self.refresh_active_state()
 
     def current_wallpaper(self):
-        uri = self.background_settings.get_string(
-            "picture-uri"
+        uri = (
+            self.background_settings
+            .get_string(
+                "picture-uri"
+            )
         )
 
-        if uri.startswith("file://"):
-            return Path(uri[7:]).name
+        if uri.startswith(
+            "file://"
+        ):
+            return Path(
+                uri[7:]
+            ).name
 
         return ""
 
     def refresh_active_state(self):
-        current = self.current_wallpaper()
+        current = (
+            self.current_wallpaper()
+        )
 
         for preset in self.presets:
-            button = self.preset_buttons.get(
-                preset["id"]
+            button = (
+                self.preset_buttons.get(
+                    preset["id"]
+                )
             )
 
             if button is None:
                 continue
 
-            if current == preset["wallpaper"]:
-                button.set_label("✓ Active")
+            if (
+                current
+                == preset["wallpaper"]
+            ):
+                button.set_label(
+                    "✓ Active"
+                )
+
                 button.add_css_class(
                     "suggested-action"
                 )
+
             else:
-                button.set_label("Apply")
+                button.set_label(
+                    "Apply"
+                )
+
                 button.remove_css_class(
                     "suggested-action"
                 )
 
-    def create_preset_card(self, preset):
+    def create_preset_card(
+        self,
+        preset,
+    ):
         card = Gtk.Box(
-            orientation=Gtk.Orientation.VERTICAL,
+            orientation=(
+                Gtk.Orientation.VERTICAL
+            ),
             spacing=12,
         )
 
-        card.add_css_class("card")
+        card.add_css_class(
+            "card"
+        )
+
         card.set_margin_top(4)
         card.set_margin_bottom(4)
         card.set_margin_start(4)
         card.set_margin_end(4)
 
-        picture = Gtk.Picture.new_for_filename(
-            str(
-                wallpaper_path(
-                    preset["wallpaper"]
+        picture = (
+            Gtk.Picture.new_for_filename(
+                str(
+                    wallpaper_path(
+                        preset[
+                            "wallpaper"
+                        ]
+                    )
                 )
             )
         )
@@ -234,40 +412,71 @@ class MarkOSAppearance(Adw.Application):
         picture.set_content_fit(
             Gtk.ContentFit.COVER
         )
-        picture.set_size_request(-1, 135)
-        picture.set_hexpand(True)
-        picture.set_can_shrink(True)
+
+        picture.set_size_request(
+            -1,
+            135,
+        )
+
+        picture.set_hexpand(
+            True
+        )
+
+        picture.set_can_shrink(
+            True
+        )
 
         info_box = Gtk.Box(
-            orientation=Gtk.Orientation.VERTICAL,
+            orientation=(
+                Gtk.Orientation.VERTICAL
+            ),
             spacing=6,
         )
 
-        info_box.set_margin_start(16)
-        info_box.set_margin_end(16)
+        info_box.set_margin_start(
+            16
+        )
+
+        info_box.set_margin_end(
+            16
+        )
 
         name_label = Gtk.Label()
+
         name_label.set_markup(
-            f"<span size='large' weight='bold'>"
+            "<span "
+            "size='large' "
+            "weight='bold'>"
             f"{preset['name']}"
-            f"</span>"
+            "</span>"
         )
-        name_label.set_xalign(0)
+
+        name_label.set_xalign(
+            0
+        )
 
         mode = (
             "Dark"
-            if preset["scheme"] == "prefer-dark"
+            if (
+                preset["scheme"]
+                == "prefer-dark"
+            )
             else "Light"
         )
 
         description = (
-            f"{mode} • {preset['accent'].title()}"
+            f"{mode} • "
+            f"{preset['accent'].title()}"
         )
 
         description_label = Gtk.Label(
             label=description
         )
-        description_label.set_xalign(0)
+
+        description_label.set_xalign(
+            0
+        )
+
         description_label.add_css_class(
             "dim-label"
         )
@@ -276,96 +485,179 @@ class MarkOSAppearance(Adw.Application):
             label="Apply"
         )
 
-        button.set_margin_start(16)
-        button.set_margin_end(16)
-        button.set_margin_bottom(16)
+        button.set_margin_start(
+            16
+        )
+
+        button.set_margin_end(
+            16
+        )
+
+        button.set_margin_bottom(
+            16
+        )
 
         button.connect(
             "clicked",
             lambda _button, p=preset:
-                self.apply_preset(p),
+                self.begin_apply_preset(
+                    p
+                ),
         )
 
         self.preset_buttons[
             preset["id"]
         ] = button
 
-        info_box.append(name_label)
-        info_box.append(description_label)
+        info_box.append(
+            name_label
+        )
 
-        card.append(picture)
-        card.append(info_box)
-        card.append(button)
+        info_box.append(
+            description_label
+        )
+
+        card.append(
+            picture
+        )
+
+        card.append(
+            info_box
+        )
+
+        card.append(
+            button
+        )
 
         return card
 
-    def on_activate(self, app):
-        window = Adw.ApplicationWindow(
-            application=app
+    def on_activate(
+        self,
+        app,
+    ):
+        window = (
+            Adw.ApplicationWindow(
+                application=app
+            )
         )
 
         window.set_title(
             "MarkOS Appearance"
         )
+
         window.set_default_size(
             780,
             700,
         )
 
-        toolbar = Adw.ToolbarView()
+        toolbar = (
+            Adw.ToolbarView()
+        )
 
-        header = Adw.HeaderBar()
-        toolbar.add_top_bar(header)
+        header = (
+            Adw.HeaderBar()
+        )
+
+        toolbar.add_top_bar(
+            header
+        )
 
         clamp = Adw.Clamp()
-        clamp.set_maximum_size(700)
+
+        clamp.set_maximum_size(
+            700
+        )
 
         main_box = Gtk.Box(
-            orientation=Gtk.Orientation.VERTICAL,
+            orientation=(
+                Gtk.Orientation.VERTICAL
+            ),
             spacing=24,
         )
 
-        main_box.set_margin_top(32)
-        main_box.set_margin_bottom(32)
-        main_box.set_margin_start(24)
-        main_box.set_margin_end(24)
+        main_box.set_margin_top(
+            32
+        )
+
+        main_box.set_margin_bottom(
+            32
+        )
+
+        main_box.set_margin_start(
+            24
+        )
+
+        main_box.set_margin_end(
+            24
+        )
 
         title = Gtk.Label()
+
         title.set_markup(
-            "<span size='xx-large' weight='bold'>"
+            "<span "
+            "size='xx-large' "
+            "weight='bold'>"
             "Make MarkOS yours"
             "</span>"
         )
-        title.set_xalign(0)
+
+        title.set_xalign(
+            0
+        )
 
         subtitle = Gtk.Label(
             label=(
-                "Choose a complete MarkOS "
-                "appearance preset."
+                "Choose a complete "
+                "MarkOS appearance preset."
             )
         )
-        subtitle.set_xalign(0)
+
+        subtitle.set_xalign(
+            0
+        )
+
         subtitle.add_css_class(
             "dim-label"
         )
 
-        main_box.append(title)
-        main_box.append(subtitle)
+        main_box.append(
+            title
+        )
+
+        main_box.append(
+            subtitle
+        )
 
         grid = Gtk.Grid()
-        grid.set_column_spacing(16)
-        grid.set_row_spacing(16)
-        grid.set_column_homogeneous(True)
+
+        grid.set_column_spacing(
+            16
+        )
+
+        grid.set_row_spacing(
+            16
+        )
+
+        grid.set_column_homogeneous(
+            True
+        )
 
         for index, preset in enumerate(
             self.presets
         ):
-            card = self.create_preset_card(
-                preset
+            card = (
+                self.create_preset_card(
+                    preset
+                )
             )
 
-            row = index // 2
-            column = index % 2
+            row = (
+                index // 2
+            )
+
+            column = (
+                index % 2
+            )
 
             grid.attach(
                 card,
@@ -375,12 +667,21 @@ class MarkOSAppearance(Adw.Application):
                 1,
             )
 
-        main_box.append(grid)
+        main_box.append(
+            grid
+        )
 
-        clamp.set_child(main_box)
-        toolbar.set_content(clamp)
+        clamp.set_child(
+            main_box
+        )
 
-        window.set_content(toolbar)
+        toolbar.set_content(
+            clamp
+        )
+
+        window.set_content(
+            toolbar
+        )
 
         self.refresh_active_state()
 

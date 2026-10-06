@@ -1,0 +1,94 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+
+  "logo": {
+    "type": "file",
+    "source": "/usr/share/markos/fastfetch/markos.txt",
+    "padding": {
+      "right": 4
+    }
+  },
+
+  "display": {
+    "separator": "  ",
+    "key": {
+      "width": 13
+    }
+  },
+
+  "modules": [
+    {
+      "type": "custom",
+      "key": "󰣇  MarkOS",
+      "keyColor": "magenta",
+      "format": "0.1  •  Cosmic"
+    },
+    {
+      "type": "custom",
+      "format": "────────────────────────────"
+    },
+    {
+      "type": "os",
+      "key": "󰌽  System",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "kernel",
+      "key": "󰌢  Kernel",
+      "keyColor": "blue"
+    },
+    {
+      "type": "packages",
+      "key": "󰏖  Packages",
+      "keyColor": "blue"
+    },
+    {
+      "type": "de",
+      "key": "󰍹  Desktop",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "terminal",
+      "key": "  Terminal",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "terminalfont",
+      "key": "  Font",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "shell",
+      "key": "  Shell",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "cpu",
+      "key": "  CPU",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "gpu",
+      "key": "󰢮  GPU",
+      "keyColor": "blue"
+    },
+    {
+      "type": "memory",
+      "key": "  Memory",
+      "keyColor": "blue"
+    },
+    {
+      "type": "disk",
+      "key": "󰋊  Storage",
+      "keyColor": "cyan",
+      "folders": "/"
+    },
+    {
+      "type": "uptime",
+      "key": "󰔟  Uptime",
+      "keyColor": "cyan"
+    },
+    "break",
+    "colors"
+  ]
+}
