@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+REPO="https://github.com/BuddySirJava/YetAnotherRadio.git"
+COMMIT="5270f61dfa91affc1ceb31f514c19b2a7e3bc6fc"
+UUID="yetanotherradio@io.github.buddysirjava"
+
+TMP_DIR="/tmp/yet-another-radio"
+SOURCE_DIR="$TMP_DIR/$UUID"
+TARGET_DIR="/usr/share/gnome-shell/extensions/$UUID"
+
+rm -rf "$TMP_DIR"
+
+git clone "$REPO" "$TMP_DIR"
+git -C "$TMP_DIR" checkout "$COMMIT"
+
+mkdir -p "$TARGET_DIR"
+cp -a "$SOURCE_DIR"/. "$TARGET_DIR"/
+
+glib-compile-schemas "$TARGET_DIR/schemas"
+
+rm -rf "$TMP_DIR"

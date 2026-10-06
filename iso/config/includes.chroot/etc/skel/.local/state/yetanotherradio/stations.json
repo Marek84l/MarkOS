@@ -1,0 +1,32 @@
+[
+  {
+    "uuid": "da2f84d6-edd1-4a87-b83d-39f6b6b3aa55",
+    "name": "Chilltrax HQ",
+    "url": "http://streams.electronicmusicradiogroup.org:9050/",
+    "homepage": "https://www.chilltrax.com/",
+    "favicon": "https://www.chilltrax.com/images/apple-icon-120x120.png",
+    "countrycode": "US",
+    "favorite": true,
+    "lastPlayed": null
+  },
+  {
+    "uuid": "07064262-5ef9-44e1-900d-ed752b7433b8",
+    "name": "1.FM - Ambient Psychill",
+    "url": "http://strm112.1.fm/ambientpsy_mobile_mp3",
+    "homepage": "http://www.1.fm/station/ambientpsy",
+    "favicon": "",
+    "countrycode": "CH",
+    "favorite": true,
+    "lastPlayed": null
+  },
+  {
+    "uuid": "4e681355-3ebb-4b6c-a79a-d7cc81a0afd5",
+    "name": "REYFM - #LOFI",
+    "url": "https://listen.reyfm.de/lofi_320kbps.mp3",
+    "homepage": "http://reyfm.de/",
+    "favicon": "http://reyfm.de/_nuxt/icons/icon_64x64.88ab9f.png",
+    "countrycode": "DE",
+    "favorite": true,
+    "lastPlayed": null
+  }
+]
