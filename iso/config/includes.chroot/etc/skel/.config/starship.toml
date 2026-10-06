@@ -3,34 +3,36 @@ add_newline = true
 format = """
 [╭─](bold purple)\
 [](purple)\
-$username\
+[ M ](fg:black bg:purple bold)\
 [](fg:purple bg:blue)\
+$username\
+[](fg:blue bg:cyan)\
 $directory\
 $git_branch\
 $git_status\
-[](blue)\
+[](cyan)\
 $line_break\
 [╰─❯](bold purple) """
 
 [username]
 show_always = true
-style_user = "fg:black bg:purple bold"
+style_user = "fg:black bg:blue bold"
 style_root = "fg:white bg:red bold"
 format = "[ $user ]($style)"
 
 [directory]
-style = "fg:black bg:blue bold"
+style = "fg:black bg:cyan bold"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncate_to_repo = false
 
 [git_branch]
 symbol = " "
-style = "fg:black bg:cyan bold"
-format = "[](fg:blue bg:cyan)[ $symbol$branch ]($style)"
+style = "fg:black bg:purple bold"
+format = "[](fg:cyan bg:purple)[ $symbol$branch ]($style)"
 
 [git_status]
-style = "fg:black bg:cyan bold"
+style = "fg:black bg:purple bold"
 format = "[$all_status$ahead_behind ]($style)"
 
 [character]
