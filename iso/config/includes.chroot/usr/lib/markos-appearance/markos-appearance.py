@@ -17,10 +17,14 @@ SYSTEM_ROOT = Path("/usr/share/markos")
 SYSTEM_WALLPAPER_DIR = Path("/usr/share/backgrounds/markos")
 SYSTEM_PRESET_DIR = SYSTEM_ROOT / "appearance"
 
-# Development tree when running directly from the MarkOS repository.
+# Development paths when running directly from the MarkOS repository.
 DEV_ROOT = Path(__file__).resolve().parents[3]
-DEV_WALLPAPER_DIR = DEV_ROOT / "usr" / "share" / "backgrounds" / "markos"
-DEV_PRESET_DIR = DEV_ROOT / "usr" / "share" / "markos" / "appearance"
+DEV_WALLPAPER_DIR = (
+    DEV_ROOT / "usr" / "share" / "backgrounds" / "markos"
+)
+DEV_PRESET_DIR = (
+    DEV_ROOT / "usr" / "share" / "markos" / "appearance"
+)
 
 
 def get_preset_dir():
@@ -51,7 +55,6 @@ def file_uri(path):
 
 def load_presets():
     presets = []
-
     preset_dir = get_preset_dir()
 
     for path in sorted(preset_dir.glob("*.conf")):
@@ -70,6 +73,7 @@ def load_presets():
                 "wallpaper": section["Wallpaper"],
                 "scheme": section["ColorScheme"],
                 "accent": section["AccentColor"],
+                "icon_theme": section["IconTheme"],
                 "terminal_palette": section.get(
                     "TerminalPalette",
                     path.stem,
@@ -142,7 +146,7 @@ class MarkOSAppearance(Adw.Application):
             "zoom",
         )
 
-        # Dark / light
+        # Dark / light appearance
         if self.has_setting(
             self.interface_settings,
             "color-scheme",
@@ -153,7 +157,7 @@ class MarkOSAppearance(Adw.Application):
             )
 
         # GNOME accent colour.
-        # Development on Mint remains safe when this key is absent.
+        # Mint may not expose this key, so development testing remains safe.
         if self.has_setting(
             self.interface_settings,
             "accent-color",
@@ -163,10 +167,15 @@ class MarkOSAppearance(Adw.Application):
                 preset["accent"],
             )
 
-        # TerminalPalette, TerminalOpacity,
-        # StarshipPalette and FastfetchPalette
-        # are already loaded here and will be applied
-        # by the next MarkOS Appearance layers.
+        # MarkOS icon theme
+        if self.has_setting(
+            self.interface_settings,
+            "icon-theme",
+        ):
+            self.interface_settings.set_string(
+                "icon-theme",
+                preset["icon_theme"],
+            )
 
         self.refresh_active_state()
 
@@ -245,9 +254,14 @@ class MarkOSAppearance(Adw.Application):
         )
         name_label.set_xalign(0)
 
+        mode = (
+            "Dark"
+            if preset["scheme"] == "prefer-dark"
+            else "Light"
+        )
+
         description = (
-            f"{'Dark' if preset['scheme'] == 'prefer-dark' else 'Light'}"
-            f" • {preset['accent'].title()}"
+            f"{mode} • {preset['accent'].title()}"
         )
 
         description_label = Gtk.Label(

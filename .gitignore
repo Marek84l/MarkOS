@@ -32,3 +32,7 @@ iso/MarkOS-*.files
 # Common local metadata
 .DS_Store
 Thumbs.db
+
+# Python cache
+__pycache__/
+*.py[cod]
