@@ -30,9 +30,9 @@ sidebar: widget
 navigation: widget
 
 images:
-    productLogo:         "markos-logo.png"
-    productIcon:         "markos-logo.png"
-    productWelcome:      "welcome.png"
+    productLogo:         "markos-orbit.svg"
+    productIcon:         "markos-orbit.svg"
+    productWelcome:      "markos-orbit.svg"
 
 slideshow: "show.qml"
 
