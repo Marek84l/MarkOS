@@ -12,6 +12,7 @@ from gi.repository import Adw, Gtk, Gio, GLib
 
 from starship import apply_starship_palette
 from fastfetch import apply_fastfetch_palette
+from ptyxis import apply_ptyxis_opacity
 
 
 APP_ID = "io.markos.Appearance"
@@ -306,6 +307,14 @@ class MarkOSAppearance(Adw.Application):
 
         apply_fastfetch_palette(
             preset["fastfetch_palette"]
+        )
+
+        # -----------------------------
+        # Ptyxis transparency
+        # -----------------------------
+
+        apply_ptyxis_opacity(
+            preset["terminal_opacity"]
         )
 
         # -----------------------------
