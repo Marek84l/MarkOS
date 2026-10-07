@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Install MarkOS
+GenericName=System Installer
+Comment=Install MarkOS on your computer
+Exec=pkexec calamares
+Icon=system-software-install
+Terminal=false
+Categories=System;
+Keywords=MarkOS;Install;Installer;System;
+StartupNotify=true

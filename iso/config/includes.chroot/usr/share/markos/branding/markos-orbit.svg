@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 512 512">
+
+  <defs>
+    <linearGradient id="markos-gradient"
+                    x1="0%" y1="100%"
+                    x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9B5CFF"/>
+      <stop offset="48%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#00D1FF"/>
+    </linearGradient>
+
+    <linearGradient id="orbit-gradient"
+                    x1="0%" y1="50%"
+                    x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#D946EF"/>
+      <stop offset="48%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#00D1FF"/>
+    </linearGradient>
+  </defs>
+
+  <path
+    d="M120 330 V170 H175 L256 260 L337 170 H392
+       V330 H330 V245 L256 326 L182 245 V330 Z"
+    fill="url(#markos-gradient)"/>
+
+  <path
+    d="M70 335
+       C115 405 250 390 365 295
+       C445 228 470 150 425 120
+       C385 92 290 118 205 170"
+    fill="none"
+    stroke="url(#orbit-gradient)"
+    stroke-width="15"
+    stroke-linecap="round"/>
+
+  <path
+    d="M120 340 C195 355 300 315 385 245"
+    fill="none"
+    stroke="url(#orbit-gradient)"
+    stroke-width="17"
+    stroke-linecap="round"/>
+
+  <circle cx="426" cy="119" r="23" fill="#00D1FF"/>
+  <circle cx="419" cy="111" r="8"
+          fill="#F8FAFF" opacity="0.55"/>
+
+</svg>

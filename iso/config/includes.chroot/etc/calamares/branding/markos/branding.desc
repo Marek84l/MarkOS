@@ -1,0 +1,45 @@
+---
+componentName: markos
+
+welcomeStyleCalamares: true
+welcomeExpandingLogo: true
+
+windowExpanding: normal
+windowSize: 900px,620px
+windowPlacement: center
+
+strings:
+    productName:         MarkOS
+    shortProductName:    MarkOS
+
+    version:             0.1
+    shortVersion:        0.1
+
+    versionedName:       MarkOS 0.1
+    shortVersionedName:  MarkOS 0.1
+
+    bootloaderEntryName: MarkOS
+
+    productUrl:          https://github.com/Marek84l/MarkOS
+    supportUrl:          https://github.com/Marek84l/MarkOS/issues
+    knownIssuesUrl:      https://github.com/Marek84l/MarkOS/issues
+    releaseNotesUrl:     https://github.com/Marek84l/MarkOS
+    donateUrl:           ""
+
+sidebar: widget
+navigation: widget
+
+images:
+    productLogo:         "markos-logo.png"
+    productIcon:         "markos-logo.png"
+    productWelcome:      "welcome.png"
+
+slideshow: "show.qml"
+
+style:
+    SidebarBackground:        "#11111b"
+    SidebarText:              "#cdd6f4"
+    SidebarTextCurrent:       "#ffffff"
+    SidebarBackgroundCurrent: "#7c3aed"
+
+slideshowAPI: 2
